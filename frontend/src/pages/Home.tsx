@@ -8,6 +8,7 @@ import axios from "axios";
 import Results from "../components/Results";
 import { setResponseData } from "../features/apiSlice";
 import { useEffect, useState } from "react";
+import { processDataFromExcel } from "../utils/util";
 
 const Home = () => {
   const [showResults, setShowResults] = useState(false);
@@ -74,6 +75,8 @@ const Home = () => {
         dispatch(setInputValue({ index: i, value: updatedInputValues[i] }));
       }
     }
+    const result = processDataFromExcel();
+    console.log("processData", result);
   };
 
   // const handleInputChange = (index: number, value: number) => {
