@@ -7,13 +7,12 @@ import {
   setCheckedValue,
   removeCheckedValue,
 } from "../features/checkedValuesSlice";
-import axios from "axios";
-import { server } from "../server/server";
 
 import {
   setSearchResultsData,
   // clearSearchResultsData,
 } from "../features/searchResultsSlice";
+import { searchAlgoValues } from "../utils/util";
 
 interface MatchValue {
   index: string;
@@ -45,8 +44,8 @@ const Results = ({ setShowResults, responseData }: ResultsProps) => {
     (checked) => checked
   );
 
-  console.log("values", checkedValues);
-  console.log("search results", searchResults);
+  //console.log("values", checkedValues);
+  //console.log("search results", searchResults);
 
   const handleCheckboxChange = (index: number, match: string) => {
     dispatch(toggleCheckbox(index));
@@ -58,19 +57,23 @@ const Results = ({ setShowResults, responseData }: ResultsProps) => {
     }
   };
 
-  console.log("checked values to be sent to the backend", checkedValues);
+  //console.log("checked values to be sent to the backend", checkedValues);
 
   const handleSearch = async () => {
-    const config = { headers: { "Content-Type": "application/json" } };
+    /* const config = { headers: { "Content-Type": "application/json" } };
 
     const response = await axios.post(
       `${server}/search`,
       checkedValues,
       config
-    );
+    ); */
+    const newStringArray = checkedValues.values.map(value => value.toString());
+    console.log(newStringArray);
+    const response = await searchAlgoValues(newStringArray);
+    console.log(response);
 
-    console.log(response.data);
-    dispatch(setSearchResultsData(response.data));
+    //console.log(response.data);
+    dispatch(setSearchResultsData(response));
   };
 
   const handleClose = () => {

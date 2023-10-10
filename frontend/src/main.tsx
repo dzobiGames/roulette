@@ -6,8 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store.ts";
 import { Provider } from "react-redux";
 
-import readExcelFile from "./utils/util.ts";
-readExcelFile()
+//readExcelFile()
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -24,7 +23,7 @@ if (navigator.serviceWorker) {
   try {
     window.addEventListener("load", () => {
       navigator.serviceWorker
-        .register("../service-worker.ts")
+        .register("../service-worker.js")
         .then((reg) => console.log("Service Worker registered", reg.scope))
         .catch((err) => console.log("Service Worker: Error", err));
     });

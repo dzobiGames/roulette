@@ -322,8 +322,9 @@ routes.post('/search', async (req: Request, res: Response) => {
                 algoValueArrayFreq[algovalue.toString()]++;
             }
         }
-        //console.log(algoValueArrayFreq);
-        res.status(200).json(algoValueArrayFreq);
+        let algoValueArrayFreqToSort = Object.entries(algoValueArrayFreq).map(([key, value]) => ({ key, value }));
+        algoValueArrayFreqToSort.sort((a, b) => b.value - a.value);
+        res.status(200).json(algoValueArrayFreqToSort);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json(error);
