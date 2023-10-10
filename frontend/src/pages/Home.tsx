@@ -3,11 +3,11 @@ import { TbAnalyzeFilled } from "react-icons/tb";
 import { MdClear } from "react-icons/md";
 import { setInputValue } from "../features/inputSlice";
 import { RootState } from "../store";
-import { server } from "../server/server";
-import axios from "axios";
 import Results from "../components/Results";
 import { setResponseData } from "../features/apiSlice";
 import { useEffect, useState } from "react";
+import { processDataFromExcel } from "../utils/util";
+
 // import { processDataFromExcel } from "../utils/util";
 
 const Home = () => {
@@ -34,10 +34,10 @@ const Home = () => {
   const handleShiftClick = async (e: any) => {
     e.preventDefault();
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    // const config = { headers: { "Content-Type": "application/json" } };
 
     try {
-      const response = await axios.post(
+      /* const response = await axios.post(
         `${server}/process`,
         {
           values: inputValues,
@@ -49,7 +49,10 @@ const Home = () => {
         dispatch(setResponseData(response.data));
         setShowResults(true)
         console.log("successfull");
-      }
+      } */
+      const data = await processDataFromExcel(inputValues);
+      dispatch(setResponseData(data));
+      setShowResults(true);
     } catch (error: any) {
       console.log("error occured");
       console.log(error.message);
